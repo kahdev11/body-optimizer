@@ -1,0 +1,144 @@
+/* Designvarianter. Alle farger og formvalg er CSS-variabler.
+ *
+ * <html data-theme="health|mono|sport" data-mode="light|dark">
+ * Variablene settes på elementet med data-theme, slik at en miniatyr kan vise
+ * en annen variant enn resten av siden (brukes i Innstillinger).
+ *
+ * Ny variant: kopier en blokk (lys + mørk), gi den et nytt navn og legg den til
+ * i THEMES i js/theme.js.
+ */
+
+/* ---------- 1. Helse (iOS Helse-stil) ---------- */
+[data-theme="health"] {
+  --bg: #F2F2F7;
+  --surface: #FFFFFF;
+  --surface-2: #EFEFF4;
+  --text: #000000;
+  --text-2: #5F5F66;
+  --text-3: #8E8E93;
+  --separator: rgba(60, 60, 67, 0.14);
+  --accent: #E6264E;
+  --on-accent: #FFFFFF;
+  --accent-soft: rgba(255, 45, 85, 0.12);
+  --success: #1F9D4C;
+  --warning: #B25E00;
+  --danger: #D92D20;
+  --card-border: transparent;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
+  --tabbar-bg: rgba(249, 249, 251, 0.82);
+  --radius: 20px;
+  --radius-sm: 12px;
+  --title-weight: 800;
+  --title-transform: none;
+  --title-style: normal;
+  --title-spacing: -0.02em;
+}
+[data-mode="dark"][data-theme="health"],
+[data-mode="dark"] [data-theme="health"] {
+  --bg: #000000;
+  --surface: #1C1C1E;
+  --surface-2: #2C2C2E;
+  --text: #FFFFFF;
+  --text-2: #AEAEB2;
+  --text-3: #8E8E93;
+  --separator: rgba(84, 84, 88, 0.55);
+  --accent: #FF375F;
+  --on-accent: #FFFFFF;
+  --accent-soft: rgba(255, 55, 95, 0.2);
+  --success: #30D158;
+  --warning: #FF9F0A;
+  --danger: #FF453A;
+  --card-border: transparent;
+  --shadow: none;
+  --tabbar-bg: rgba(22, 22, 24, 0.82);
+}
+
+/* ---------- 2. Monokrom (minimalistisk) ---------- */
+[data-theme="mono"] {
+  --bg: #FAFAFA;
+  --surface: #FFFFFF;
+  --surface-2: #F0F0F0;
+  --text: #111111;
+  --text-2: #5C5C5C;
+  --text-3: #8A8A8A;
+  --separator: rgba(0, 0, 0, 0.1);
+  --accent: #111111;
+  --on-accent: #FFFFFF;
+  --accent-soft: rgba(0, 0, 0, 0.06);
+  --success: #2B7A4B;
+  --warning: #8A5A00;
+  --danger: #B3261E;
+  --card-border: rgba(0, 0, 0, 0.1);
+  --shadow: none;
+  --tabbar-bg: rgba(250, 250, 250, 0.86);
+  --radius: 14px;
+  --radius-sm: 10px;
+  --title-weight: 600;
+  --title-transform: none;
+  --title-style: normal;
+  --title-spacing: -0.035em;
+}
+[data-mode="dark"][data-theme="mono"],
+[data-mode="dark"] [data-theme="mono"] {
+  --bg: #0A0A0A;
+  --surface: #141414;
+  --surface-2: #202020;
+  --text: #F5F5F5;
+  --text-2: #A8A8A8;
+  --text-3: #7A7A7A;
+  --separator: rgba(255, 255, 255, 0.12);
+  --accent: #F5F5F5;
+  --on-accent: #0A0A0A;
+  --accent-soft: rgba(255, 255, 255, 0.1);
+  --success: #6FCF97;
+  --warning: #E0B050;
+  --danger: #F2766B;
+  --card-border: rgba(255, 255, 255, 0.12);
+  --shadow: none;
+  --tabbar-bg: rgba(10, 10, 10, 0.86);
+}
+
+/* ---------- 3. Sporty (aksentfarge) ---------- */
+[data-theme="sport"] {
+  --bg: #EEF1F6;
+  --surface: #FFFFFF;
+  --surface-2: #E4E9F1;
+  --text: #0B1220;
+  --text-2: #4A5568;
+  --text-3: #7B8798;
+  --separator: rgba(11, 18, 32, 0.12);
+  --accent: #D9480F;
+  --on-accent: #FFFFFF;
+  --accent-soft: rgba(232, 80, 20, 0.13);
+  --success: #12804A;
+  --warning: #9A5B00;
+  --danger: #C92A2A;
+  --card-border: transparent;
+  --shadow: 0 2px 0 rgba(11, 18, 32, 0.04), 0 10px 22px rgba(11, 18, 32, 0.08);
+  --tabbar-bg: rgba(255, 255, 255, 0.86);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --title-weight: 900;
+  --title-transform: uppercase;
+  --title-style: italic;
+  --title-spacing: 0;
+}
+[data-mode="dark"][data-theme="sport"],
+[data-mode="dark"] [data-theme="sport"] {
+  --bg: #0B1220;
+  --surface: #151E30;
+  --surface-2: #1F2A40;
+  --text: #F2F5FA;
+  --text-2: #A5B1C5;
+  --text-3: #7483A0;
+  --separator: rgba(165, 177, 197, 0.18);
+  --accent: #FF7A3D;
+  --on-accent: #1A0E06;
+  --accent-soft: rgba(255, 122, 61, 0.18);
+  --success: #3DDC84;
+  --warning: #FFB547;
+  --danger: #FF6B6B;
+  --card-border: rgba(165, 177, 197, 0.1);
+  --shadow: none;
+  --tabbar-bg: rgba(11, 18, 32, 0.86);
+}
