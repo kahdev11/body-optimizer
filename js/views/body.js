@@ -5,6 +5,8 @@ import { h, mount, setChildren, card, sectionTitle, segmented, toast, openSheet,
 import { icon } from '../icons.js';
 import { field, scalePicker, chips, timeField, noteField } from '../forms.js';
 import { fromLocalInput } from '../dates.js';
+import { renderMeasurements } from './measurements.js';
+import { refresh } from '../router.js';
 import { createBodyMap } from '../bodymap.js';
 import { ALL_REGION_IDS, parseRegionId, getRegion, regionLabel, VIEWER_RIGHT_SIDE } from '../regions.js';
 import {
@@ -14,7 +16,7 @@ import {
 } from '../scores.js';
 
 // Valgt dimensjon og visning huskes mens appen er åpen.
-const state = { dimension: 'pain', view: 'front' };
+const state = { tab: 'map', dimension: 'pain', view: 'front' };
 
 // Hodepine bruker samme fargeskala som smerte, men fra 1.
 const HEADACHE_INTENSITY = { id: 'pain', name: 'Intensitet', min: 1, max: 10, lowLabel: 'Mild', highLabel: 'Kraftig' };
@@ -262,6 +264,13 @@ function legend(dimension) {
 }
 
 export async function renderBody(view) {
+  mount(
+    view,
+    h('header', { class: 'view-header' }, h('h1', {}, 'Kropp')),
+    segmented([{ id: 'map', name: 'Kroppskart' }, { id: 'measure', name: 'Målinger' }], state.tab, (id) => { state.tab = id; refresh(); }, 'Visning')
+  );
+  if (state.tab === 'measure') return renderMeasurements(view, refresh);
+
   let scores = await getScores();
   let headaches = await getHeadaches();
 
@@ -343,7 +352,6 @@ export async function renderBody(view) {
 
   mount(
     view,
-    h('header', { class: 'view-header' }, h('h1', {}, 'Kropp')),
     dimHost,
     card(
       segmented([{ id: 'front', name: 'Forfra' }, { id: 'back', name: 'Bakfra' }], state.view, (id) => { state.view = id; draw(); }, 'Visning'),

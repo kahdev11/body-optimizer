@@ -8,7 +8,19 @@ kroppskart, skadeforebygging, kondisjon, dagbok, mål og statistikk.
   innlogging, ingen sporing.
 - Fungerer uten nett og kan legges til på Hjem-skjermen på iPhone.
 
-Status: **fase 1 (grunnmur)** er ferdig. Se [CHANGELOG.md](CHANGELOG.md).
+Status: alle fem fasene er ferdige (versjon 1.0.0). Se [CHANGELOG.md](CHANGELOG.md).
+
+## Hva appen gjør
+
+- **I dag** – dagens plan som avkrysningsliste, dagbok, kalender og uke-/månedsmål.
+- **Kropp** – kroppskart forfra og bakfra med score for styrke, bevegelighet og
+  smerte per kroppsdel, hodepinelogg, og målinger (vekt, BMI, midje).
+- **Trening** – anbefalinger ut fra scorene dine og håndballspesifikk
+  forebygging, kondisjonslogg med progresjon mot kampform, øvelsesbibliotek og
+  tøyeprogrammer.
+- **Statistikk** – grafer over score, smerte, hodepine, vekt, treningsvolum og
+  måloppnåelse (4 uker, 3 måneder eller 1 år).
+- **Innstillinger** – designvariant, lys/mørk, sikkerhetskopi og versjon.
 
 ## Publisere på GitHub Pages
 
@@ -89,27 +101,46 @@ python -m http.server 8000
 Åpne `http://localhost:8000`. For å teste på iPhone før publisering må siden
 serveres over HTTPS – enklest er å pushe til GitHub Pages.
 
+## Utvide øvelser og tøyeprogrammer
+
+Øvelsene ligger som data i `js/data/exercises.js` og tøyeprogrammene i
+`js/data/stretches.js`. Legg til et nytt objekt i listen (formatet står øverst i
+hver fil), øk versjonen i `version.js` og push. Hvilke øvelser som anbefales for
+hvert fokusområde styres av `FOCUS_AREAS` i `js/recommend.js`.
+
 ## Filstruktur
 
 ```
-index.html            Skallet: fanelinje, oppdateringsbanner, lasting av skript
-version.js            Appversjon (semver) – eneste kilde
-sw.js                 Service worker med versjonert cache
-manifest.json         PWA-manifest
-css/themes.css        Designvarianter og lys/mørk – alle farger som CSS-variabler
-css/base.css          Layout og komponenter (bruker bare variablene)
-js/app.js             Oppstart og ruter
-js/db.js              IndexedDB: åpning, lese/skrive, interne sikkerhetskopier
-js/migrations.js      Skjemaversjon og migreringer
-js/backup.js          Eksport, import (validering, forhåndsvisning, sammenslåing)
-js/theme.js           Designvariant og lys/mørk modus
-js/pwa.js             Registrering av service worker og oppdateringsflyt
-js/router.js          Hash-ruter og fanelinje
-js/ui.js              UI-byggeklosser (elementer, ark, dialog, toast)
-js/icons.js           Ikoner
-js/views/             Én fil per visning
-icons/                Appikoner
-tools/make-icons.ps1  Lager PNG-ikonene på nytt
+index.html              Skallet: fanelinje, oppdateringsbanner, lasting av skript
+version.js              Appversjon (semver) – eneste kilde
+sw.js                   Service worker med versjonert cache
+manifest.json           PWA-manifest
+css/themes.css          Designvarianter, lys/mørk og fargeskalaer (CSS-variabler)
+css/base.css            Layout og komponenter (bruker bare variablene)
+js/app.js               Oppstart og ruter
+js/db.js                IndexedDB: åpning, lese/skrive, interne sikkerhetskopier
+js/migrations.js        Skjemaversjon og migreringer
+js/backup.js            Eksport, import (validering, forhåndsvisning, sammenslåing)
+js/theme.js             Designvariant og lys/mørk modus
+js/pwa.js               Registrering av service worker og oppdateringsflyt
+js/router.js            Hash-ruter og fanelinje
+js/ui.js                UI-byggeklosser (elementer, ark, dialog, toast)
+js/forms.js             Skjemakomponenter (tallskala, valgbrikker, ring)
+js/icons.js             Ikoner
+js/dates.js             Datohjelpere (dagnøkler, uker, måneder)
+js/regions.js           Kroppsregioner og SVG-former for kroppskartet
+js/bodymap.js           Tegner kroppskartet
+js/scores.js            Data: kroppsscorer og hodepine
+js/planner.js           Data: dagens plan og dagbok
+js/goals.js             Data: mål og utregning av fremdrift
+js/training.js          Data: kondisjonsøkter og målinger
+js/recommend.js         Anbefalinger og kondisjonsprogresjon
+js/charts.js            Linje- og stolpegrafer i SVG
+js/data/exercises.js    Øvelsesbibliotek
+js/data/stretches.js    Tøyeprogrammer
+js/views/               Én fil per visning (today, body, measurements, training, stats, settings)
+icons/                  Appikoner
+tools/make-icons.ps1    Lager PNG-ikonene på nytt
 ```
 
 ## Ansvarsfraskrivelse

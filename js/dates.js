@@ -71,7 +71,10 @@ export const formatMonth = (key) => F_MONTH.format(fromKey(key));
 export const formatMonthShort = (key) => F_MONTH_SHORT.format(fromKey(key)).replace('.', '');
 
 export function periodLabel(period, key) {
-  if (period === 'month') return formatMonth(key);
+  if (period === 'month') {
+    const m = formatMonth(key);
+    return m.charAt(0).toUpperCase() + m.slice(1);
+  }
   const { start, end } = periodRange('week', key);
   return `Uke ${weekNumber(start)} · ${formatShort(start)}–${formatShort(end)}`;
 }

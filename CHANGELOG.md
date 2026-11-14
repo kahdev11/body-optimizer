@@ -3,6 +3,36 @@
 Alle merkbare endringer i appen føres her. Versjonsnummeret følger
 [semver](https://semver.org/lang/nb/) og settes kun i `version.js`.
 
+## [1.0.0] – 2026-11-14
+
+Fase 4 og 5: Kondisjon, målinger, statistikk, anbefalinger, øvelser og tøying.
+Databaseskjema v4. Alle fem fasene er nå på plass.
+
+### Lagt til
+- Kondisjonslogg: løp, intervaller, sykkel, svømming, håndballtrening og kamp,
+  med varighet, distanse, opplevd anstrengelse (RPE), valgfri puls og notat.
+- «Veien mot kampform»: rolig grunnlag → intervaller → håndballspesifikke
+  sprinter og retningsendringer. Appen foreslår hvilket trinn du er på ut fra
+  øktene de siste tre ukene, og sier fra hvis belastningen øker brått.
+- Målinger: vekt over tid, høyde, automatisk BMI og valgfritt midjemål.
+- Statistikk med egne SVG-grafer (fungerer uten nett): score per kroppsdel og
+  dimensjon, smerte- og hodepinetrender, vekt/BMI, treningsvolum per uke og
+  måloppnåelse. Velg 4 uker, 3 måneder eller 1 år. Trykk på grafen for verdier.
+- Anbefalinger: prioriterte fokusområder ut fra scorene (lav styrke, lav
+  bevegelighet, smerte og sideforskjeller) og håndballspesifikk forebygging –
+  skulder/rotatorcuff, bakside lår, lyske, sete/hofte, core, ankel og kne.
+- «Dagens forslag» som legger øvelser, tøying og kondis rett i dagens plan.
+- Øvelsesbibliotek med 35 øvelser (`js/data/exercises.js`) og fem
+  tøyeprogrammer (`js/data/stretches.js`) – lett å utvide.
+- Rolig råd om å kontakte lege eller fysioterapeut ved smerte 7+ eller økende
+  smerte over tid, og generelle varseltegn ved hodepine. Appen stiller ikke
+  diagnoser.
+
+### Endret
+- Migrering til skjema v4 (kondisjonsøkter og målinger).
+- «Kropp» har fått fanene Kroppskart og Målinger; «Trening» har Råd, Kondis,
+  Øvelser og Tøying.
+
 ## [0.3.0] – 2026-11-14
 
 Fase 3: Dagbok, sjekklister og mål. Databaseskjema v3.

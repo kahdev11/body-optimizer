@@ -8,33 +8,14 @@ import { h } from './ui.js';
 import { renderToday } from './views/today.js';
 import { renderSettings } from './views/settings.js';
 import { renderBody } from './views/body.js';
-import { placeholder } from './views/placeholder.js';
+import { renderTraining } from './views/training.js';
+import { renderStats } from './views/stats.js';
 
 const ROUTES = [
   { id: 'idag', title: 'I dag', icon: 'today', render: renderToday },
   { id: 'kropp', title: 'Kropp', icon: 'body', render: renderBody },
-  {
-    id: 'trening',
-    title: 'Trening',
-    icon: 'training',
-    render: placeholder({
-      title: 'Trening',
-      iconName: 'training',
-      phase: '4–5',
-      points: ['Logg kondisjonsøkter med RPE og puls', 'Progresjon tilbake mot kampform', 'Øvelsesbibliotek og tøyeprogrammer', 'Håndballspesifikk skadeforebygging'],
-    }),
-  },
-  {
-    id: 'statistikk',
-    title: 'Statistikk',
-    icon: 'stats',
-    render: placeholder({
-      title: 'Statistikk',
-      iconName: 'stats',
-      phase: 4,
-      points: ['Score per kroppsdel over tid', 'Smerte- og hodepinetrender', 'Vekt og BMI', 'Treningsvolum og måloppnåelse'],
-    }),
-  },
+  { id: 'trening', title: 'Trening', icon: 'training', render: renderTraining },
+  { id: 'statistikk', title: 'Statistikk', icon: 'stats', render: renderStats },
   { id: 'innstillinger', title: 'Innstillinger', icon: 'settings', render: renderSettings },
 ];
 
