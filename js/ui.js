@@ -81,7 +81,9 @@ export function openSheet({ title, content, onClose } = {}) {
   function close() {
     if (closed) return;
     closed = true;
+    backdrop.inert = true; // ingen trykk mens arket glir ut
     backdrop.classList.remove('open');
+    backdrop.classList.add('closing');
     document.removeEventListener('keydown', onKey);
     setTimeout(() => backdrop.remove(), 280);
     if (onClose) onClose();

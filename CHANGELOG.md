@@ -3,6 +3,27 @@
 Alle merkbare endringer i appen føres her. Versjonsnummeret følger
 [semver](https://semver.org/lang/nb/) og settes kun i `version.js`.
 
+## [0.2.0] – 2026-11-14
+
+Fase 2: Kroppskart. Databaseskjema v2.
+
+### Lagt til
+- Kroppskart med anatomisk silhuett forfra og bakfra og klikkbare regioner
+  (venstre og høyre side hver for seg).
+- Score per region: styrke (1–10), bevegelighet (1–10) og smerte (0–10) med
+  valgfri smertetype, tidspunkt og notat. Kan lagres for begge sider samtidig.
+- Hodepinelogg: intensitet, varighet, type, plassering og mulige utløsere,
+  med generelle varseltegn som bør sjekkes av lege.
+- Varmekart per dimensjon med tegnforklaring, og oversiktsliste sortert etter
+  hva som trenger mest oppmerksomhet.
+- Historikk per region med liten trendlinje. Hver registrering lagres som en
+  egen post med tidsstempel – ingenting overskrives.
+- Rolig anbefaling om å kontakte lege/fysioterapeut ved smerte 7 eller høyere.
+
+### Endret
+- Migrering til skjema v2 (nye lagre for kroppsscorer og hodepine). Intern
+  sikkerhetskopi tas automatisk før oppgraderingen.
+
 ## [0.1.0] – 2026-11-14
 
 Fase 1: Grunnmur.

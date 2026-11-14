@@ -1,4 +1,4 @@
-// «I dag» – i fase 1: velkomst, påminnelse om sikkerhetskopi og veikart.
+// «I dag» – foreløpig: velkomst, påminnelse om sikkerhetskopi og veikart.
 // Dagbok, dagens plan og mål kommer i fase 3.
 
 import { h, mount, card, sectionTitle, formatDate } from '../ui.js';
@@ -10,7 +10,7 @@ import { refresh } from '../router.js';
 
 const PHASES = [
   { n: 1, title: 'Grunnmur', text: 'App på Hjem-skjerm, lokal lagring, sikkerhetskopi og design', done: true },
-  { n: 2, title: 'Kroppskart', text: 'Score styrke, bevegelighet og smerte per kroppsdel' },
+  { n: 2, title: 'Kroppskart', text: 'Score styrke, bevegelighet og smerte per kroppsdel', done: true },
   { n: 3, title: 'Dagbok og mål', text: 'Notater, dagens plan, kalender, uke- og månedsmål' },
   { n: 4, title: 'Kondisjon og statistikk', text: 'Øktlogg, vekt/BMI og grafer over tid' },
   { n: 5, title: 'Anbefalinger', text: 'Prioriteringer, øvelsesbibliotek og tøyeprogrammer' },
@@ -59,9 +59,9 @@ export async function renderToday(view) {
     status.due && !status.snoozed ? backupReminder(status) : null,
     isIOS() && !isStandalone() ? installHint() : null,
     card(
-      h('div', { class: 'notice-head' }, icon('sparkle', 24), h('h2', {}, 'Grunnmuren er på plass')),
-      h('p', { class: 'muted' }, 'Appen lagrer alt lokalt på telefonen, fungerer uten nett og kan sikkerhetskopieres til Filer. Prøv de tre designvariantene og lys/mørk modus under Innstillinger.'),
-      h('a', { class: 'btn btn-tinted', href: '#/innstillinger' }, 'Åpne Innstillinger')
+      h('div', { class: 'notice-head' }, icon('body', 24), h('h2', {}, 'Kartlegg kroppen')),
+      h('p', { class: 'muted' }, 'Gå gjennom kroppskartet og gi score for styrke, bevegelighet og smerte. Jo flere registreringer over tid, desto bedre blir trendene og anbefalingene senere.'),
+      h('a', { class: 'btn btn-tinted', href: '#/kropp' }, 'Åpne kroppskartet')
     ),
     sectionTitle('Veien videre'),
     h(

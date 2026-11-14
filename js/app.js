@@ -7,21 +7,12 @@ import { initPWA, onUpdateReady, applyUpdate } from './pwa.js';
 import { h } from './ui.js';
 import { renderToday } from './views/today.js';
 import { renderSettings } from './views/settings.js';
+import { renderBody } from './views/body.js';
 import { placeholder } from './views/placeholder.js';
 
 const ROUTES = [
   { id: 'idag', title: 'I dag', icon: 'today', render: renderToday },
-  {
-    id: 'kropp',
-    title: 'Kropp',
-    icon: 'body',
-    render: placeholder({
-      title: 'Kropp',
-      iconName: 'body',
-      phase: 2,
-      points: ['Kroppskart forfra og bakfra', 'Score styrke, bevegelighet og smerte', 'Hodepinelogg', 'Varmekart og historikk'],
-    }),
-  },
+  { id: 'kropp', title: 'Kropp', icon: 'body', render: renderBody },
   {
     id: 'trening',
     title: 'Trening',

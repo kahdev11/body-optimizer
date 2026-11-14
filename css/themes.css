@@ -142,3 +142,42 @@
   --shadow: none;
   --tabbar-bg: rgba(11, 18, 32, 0.86);
 }
+
+/* ---------- Varmekart (felles for alle designvarianter) ----------
+ * Smerte: én fargetone, lys -> mørk (mer smerte = sterkere farge).
+ * Styrke/bevegelighet: oransje (lav) <-> blå (høy) med nøytral grå i midten.
+ * Mørk modus har egne trinn, valgt for mørk bakgrunn.
+ */
+:root {
+  --pain-0: #FBE4E1;
+  --pain-1: #F5BDB6;
+  --pain-2: #EC8F86;
+  --pain-3: #DD5F57;
+  --pain-4: #BF3431;
+  --pain-5: #8C1A1E;
+  --score-1: #C8501E;
+  --score-2: #EFA774;
+  --score-3: #CBCAC5;
+  --score-4: #86B6EF;
+  --score-5: #1C5CAB;
+  --map-empty: var(--surface);
+  --map-outline: rgba(60, 60, 67, 0.5);
+  --map-divider: rgba(60, 60, 67, 0.16);
+  --map-detail: rgba(60, 60, 67, 0.2);
+}
+[data-mode="dark"] {
+  --pain-0: #40282A;
+  --pain-1: #6E2F30;
+  --pain-2: #9C3936;
+  --pain-3: #CB4A44;
+  --pain-4: #EE6E63;
+  --pain-5: #FFA79B;
+  --score-1: #F08A50;
+  --score-2: #9A5632;
+  --score-3: #5C5C5A;
+  --score-4: #2C5F9E;
+  --score-5: #7DB6F7;
+  --map-outline: rgba(235, 235, 245, 0.5);
+  --map-divider: rgba(235, 235, 245, 0.16);
+  --map-detail: rgba(235, 235, 245, 0.22);
+}

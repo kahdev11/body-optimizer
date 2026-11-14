@@ -25,12 +25,24 @@ export const MIGRATIONS = [
       db.createObjectStore('meta', { keyPath: 'key' });
     },
   },
+  {
+    version: 2,
+    description: 'Kroppskart: scorer per kroppsregion og hodepinelogg',
+    schema(db) {
+      // Én post per registrering (overskrives aldri): { id, regionId, at, strength, mobility, pain, painType, note }
+      db.createObjectStore('bodyScores', { keyPath: 'id' });
+      // { id, at, intensity, durationMin, kind, locations[], triggers[], note }
+      db.createObjectStore('headaches', { keyPath: 'id' });
+    },
+  },
 ];
 
 export const SCHEMA_VERSION = MIGRATIONS[MIGRATIONS.length - 1].version;
 
 export const STORE_LABELS = {
   meta: 'Innstillinger',
+  bodyScores: 'Kroppsscorer',
+  headaches: 'Hodepine',
 };
 
 MIGRATIONS.forEach((m, i) => {
