@@ -35,6 +35,28 @@ export const MIGRATIONS = [
       db.createObjectStore('headaches', { keyPath: 'id' });
     },
   },
+  {
+    version: 3,
+    description: 'Dagbok, dagens plan og mål',
+    schema(db) {
+      // Ett notat per dag: { date: 'YYYY-MM-DD', text }
+      db.createObjectStore('diary', { keyPath: 'date' });
+      // { id, date, title, detail, category, done, doneAt, order, sourceId, createdAt }
+      db.createObjectStore('planItems', { keyPath: 'id' });
+      // { id, period: 'week'|'month', kind, title, target, category, regionId, ticks[], createdAt }
+      db.createObjectStore('goals', { keyPath: 'id' });
+    },
+  },
+  {
+    version: 4,
+    description: 'Kondisjonsøkter og kroppsmålinger',
+    schema(db) {
+      // { id, at, type, durationMin, distanceKm, rpe, hr, note }
+      db.createObjectStore('cardio', { keyPath: 'id' });
+      // { id, at, weightKg, waistCm }  (høyde ligger i meta: «profile»)
+      db.createObjectStore('measurements', { keyPath: 'id' });
+    },
+  },
 ];
 
 export const SCHEMA_VERSION = MIGRATIONS[MIGRATIONS.length - 1].version;
@@ -43,6 +65,11 @@ export const STORE_LABELS = {
   meta: 'Innstillinger',
   bodyScores: 'Kroppsscorer',
   headaches: 'Hodepine',
+  diary: 'Dagbok',
+  planItems: 'Planpunkter',
+  goals: 'Mål',
+  cardio: 'Kondisjonsøkter',
+  measurements: 'Målinger',
 };
 
 MIGRATIONS.forEach((m, i) => {

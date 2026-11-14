@@ -132,3 +132,21 @@ export function recentHeadache(headaches, days = 7) {
   if (!latest) return null;
   return Date.now() - new Date(latest.at).getTime() <= days * 86400000 ? latest : null;
 }
+
+// ---------- Tekstsammendrag ----------
+
+export function scoreSummary(s) {
+  const parts = [];
+  if (s.pain !== null) parts.push(`Smerte ${s.pain}${s.painType ? ` (${nameOf(PAIN_TYPES, s.painType).toLowerCase()})` : ''}`);
+  if (s.strength !== null) parts.push(`Styrke ${s.strength}`);
+  if (s.mobility !== null) parts.push(`Bevegelighet ${s.mobility}`);
+  return parts.join(' · ');
+}
+
+export function headacheSummary(x) {
+  const parts = [`Intensitet ${x.intensity}`];
+  if (x.durationMin) parts.push(nameOf(HEADACHE_DURATIONS, x.durationMin) || `${x.durationMin} min`);
+  if (x.kind) parts.push(nameOf(HEADACHE_KINDS, x.kind).toLowerCase());
+  if (x.locations && x.locations.length) parts.push(x.locations.map((id) => nameOf(HEADACHE_LOCATIONS, id).toLowerCase()).join(', '));
+  return parts.join(' · ');
+}

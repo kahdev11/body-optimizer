@@ -181,3 +181,27 @@
   --map-divider: rgba(235, 235, 245, 0.16);
   --map-detail: rgba(235, 235, 245, 0.22);
 }
+
+/* ---------- Kategorifarger og grafer (felles for alle designvarianter) ---------- */
+:root {
+  --cat-strength: #2A78D6;
+  --cat-stretch: #1BAF7A;
+  --cat-cardio: #EB6834;
+  --cat-other: #8E8E93;
+  --cat-body: #B8518F;
+  --series-1: #2A78D6;
+  --series-2: #EB6834;
+  --series-3: #1BAF7A;
+  --chart-grid: rgba(60, 60, 67, 0.12);
+}
+[data-mode="dark"] {
+  --cat-strength: #3987E5;
+  --cat-stretch: #199E70;
+  --cat-cardio: #D95926;
+  --cat-other: #8E8E93;
+  --cat-body: #C566A0;
+  --series-1: #3987E5;
+  --series-2: #D95926;
+  --series-3: #199E70;
+  --chart-grid: rgba(235, 235, 245, 0.14);
+}

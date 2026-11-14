@@ -3,6 +3,22 @@
 Alle merkbare endringer i appen føres her. Versjonsnummeret følger
 [semver](https://semver.org/lang/nb/) og settes kun i `version.js`.
 
+## [0.3.0] – 2026-11-14
+
+Fase 3: Dagbok, sjekklister og mål. Databaseskjema v3.
+
+### Lagt til
+- «I dag» med dagens plan som avkrysningsliste (styrke, tøying, kondis, annet),
+  fremdriftslinje og «kopier forrige plan». Bla mellom dager.
+- Daglig dagbok med fritekst som lagres automatisk.
+- Kalender som viser hva som er gjort hver dag, med detaljer for valgt dag.
+- Ukemål og månedsmål med fremdriftsringer. Fremdriften regnes ut fra plan,
+  kondisjonslogg og smertescore, eller telles manuelt. Viser også om målet ble
+  nådd i de foregående periodene.
+
+### Endret
+- Migrering til skjema v3 (dagbok, planpunkter og mål).
+
 ## [0.2.0] – 2026-11-14
 
 Fase 2: Kroppskart. Databaseskjema v2.

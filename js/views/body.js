@@ -3,12 +3,14 @@
 
 import { h, mount, setChildren, card, sectionTitle, segmented, toast, openSheet, confirmDialog, formatDate } from '../ui.js';
 import { icon } from '../icons.js';
+import { field, scalePicker, chips, timeField, noteField } from '../forms.js';
+import { fromLocalInput } from '../dates.js';
 import { createBodyMap } from '../bodymap.js';
 import { ALL_REGION_IDS, parseRegionId, getRegion, regionLabel, VIEWER_RIGHT_SIDE } from '../regions.js';
 import {
   DIMENSIONS, PAIN_TYPES, HEADACHE_KINDS, HEADACHE_LOCATIONS, HEADACHE_TRIGGERS, HEADACHE_DURATIONS,
   nameOf, levelOf, getScores, addScore, deleteScore, latestByRegion,
-  getHeadaches, addHeadache, deleteHeadache, recentHeadache,
+  getHeadaches, addHeadache, deleteHeadache, recentHeadache, scoreSummary, headacheSummary,
 } from '../scores.js';
 
 // Valgt dimensjon og visning huskes mens appen er åpen.
@@ -21,88 +23,6 @@ const dimById = (id) => DIMENSIONS.find((d) => d.id === id);
 const shortDate = (iso) => formatDate(iso, { day: 'numeric', month: 'short' });
 const dateTime = (iso) => formatDate(iso, { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
 
-const pad = (n) => String(n).padStart(2, '0');
-const toLocalInput = (date) => `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
-const fromLocalInput = (value) => {
-  const d = value ? new Date(value) : new Date();
-  return Number.isNaN(d.getTime()) ? new Date().toISOString() : d.toISOString();
-};
-
-// ---------- Skjemakomponenter ----------
-
-/** Rad med tallknapper. Trykk på valgt tall én gang til for å fjerne valget. */
-function scalePicker(dim, onChange) {
-  const dimension = dim.id;
-  let value = null;
-  const wrap = h('div', { class: 'scale', role: 'radiogroup', 'aria-label': dim.name });
-  const paint = () => {
-    for (const btn of wrap.children) {
-      const on = Number(btn.dataset.value) === value;
-      btn.classList.toggle('selected', on);
-      btn.setAttribute('aria-checked', String(on));
-      if (on) btn.dataset.level = levelOf(dimension, value);
-      else delete btn.dataset.level;
-    }
-  };
-  for (let v = dim.min; v <= dim.max; v++) {
-    wrap.append(
-      h('button', {
-        type: 'button', role: 'radio', dataset: { value: String(v) },
-        onclick: () => {
-          value = value === v ? null : v;
-          paint();
-          onChange(value);
-        },
-      }, String(v))
-    );
-  }
-  paint();
-  return h('div', {}, wrap, h('div', { class: 'scale-ends' }, h('span', {}, dim.lowLabel), h('span', {}, dim.highLabel)));
-}
-
-/** Valgbrikker. multi = flere kan velges (avkrysning), ellers én (kan nullstilles). */
-function chips(options, { multi = false, label, onChange }) {
-  const selected = new Set();
-  const wrap = h('div', { class: 'chips', role: 'group', 'aria-label': label });
-  for (const opt of options) {
-    const btn = h('button', {
-      type: 'button', class: 'chip-btn', 'aria-pressed': 'false',
-      onclick: () => {
-        if (selected.has(opt.id)) selected.delete(opt.id);
-        else {
-          if (!multi) selected.clear();
-          selected.add(opt.id);
-        }
-        for (const el of wrap.children) {
-          const on = selected.has(el._id);
-          el.classList.toggle('selected', on);
-          el.setAttribute('aria-pressed', String(on));
-        }
-        onChange(multi ? [...selected] : [...selected][0] ?? null);
-      },
-    }, opt.name);
-    btn._id = opt.id;
-    wrap.append(btn);
-  }
-  return wrap;
-}
-
-function field(label, control, extra) {
-  return h('div', { class: 'field' }, h('div', { class: 'field-head' }, h('span', { class: 'field-label' }, label), extra || null), control);
-}
-
-function timeField(onChange) {
-  const input = h('input', { type: 'datetime-local', class: 'input', value: toLocalInput(new Date()), max: toLocalInput(new Date(Date.now() + 86400000)), 'aria-label': 'Tidspunkt' });
-  input.addEventListener('change', () => onChange(input.value));
-  return field('Tidspunkt', input);
-}
-
-function noteField(onChange, placeholder) {
-  const area = h('textarea', { class: 'input', rows: '2', placeholder, 'aria-label': 'Notat' });
-  area.addEventListener('input', () => onChange(area.value));
-  return field('Notat (valgfritt)', area);
-}
-
 /** Liten trendlinje (eldste til venstre). Vises bare med minst to verdier. */
 function sparkline(values, min, max) {
   if (values.length < 2) return null;
@@ -113,22 +33,6 @@ function sparkline(values, min, max) {
   const wrap = h('span', { class: 'spark', role: 'img', 'aria-label': `Utvikling: ${values.join(', ')}` });
   wrap.innerHTML = `<svg viewBox="0 0 ${w} ${hgt}" width="${w}" height="${hgt}"><polyline points="${points}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${x(values.length - 1).toFixed(1)}" cy="${y(values[values.length - 1]).toFixed(1)}" r="3" class="spark-dot"/></svg>`;
   return wrap;
-}
-
-function scoreSummary(s) {
-  const parts = [];
-  if (s.pain !== null) parts.push(`Smerte ${s.pain}${s.painType ? ` (${nameOf(PAIN_TYPES, s.painType).toLowerCase()})` : ''}`);
-  if (s.strength !== null) parts.push(`Styrke ${s.strength}`);
-  if (s.mobility !== null) parts.push(`Bevegelighet ${s.mobility}`);
-  return parts.join(' · ');
-}
-
-function headacheSummary(x) {
-  const parts = [`Intensitet ${x.intensity}`];
-  if (x.durationMin) parts.push(nameOf(HEADACHE_DURATIONS, x.durationMin) || `${x.durationMin} min`);
-  if (x.kind) parts.push(nameOf(HEADACHE_KINDS, x.kind).toLowerCase());
-  if (x.locations && x.locations.length) parts.push(x.locations.map((id) => nameOf(HEADACHE_LOCATIONS, id).toLowerCase()).join(', '));
-  return parts.join(' · ');
 }
 
 function historyItem({ when, title, text, note, onDelete }) {
